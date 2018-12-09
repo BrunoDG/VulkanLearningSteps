@@ -1,4 +1,2 @@
 ﻿  main.cpp
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  TriangleDraw - Lesson2.vcxproj -> D:\Users\brunodg\Repositorios\Vulkan\VulkanProject\x64\Debug\TriangleDraw - Lesson2.exe
-  TriangleDraw - Lesson2.vcxproj -> D:\Users\brunodg\Repositorios\Vulkan\VulkanProject\x64\Debug\TriangleDraw - Lesson2.pdb (Full PDB)
+  TriangleDraw - Lesson2.vcxproj -> C:\Repositorios\VulkanLearningSteps\x64\Debug\TriangleDraw - Lesson2.exe
