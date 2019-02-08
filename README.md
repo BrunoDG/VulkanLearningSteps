@@ -17,4 +17,7 @@ Este repositório é um início de todos os meus passos iniciais com Vulkan. Atu
 
 ##### Validation Layers
 
-##### Physical devices and queue families _(fazendo)_
+##### Physical devices and queue families
+
+##### Logical device and queues _(fazendo)_
+
