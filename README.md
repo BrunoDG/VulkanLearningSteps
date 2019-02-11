@@ -3,21 +3,17 @@ Este repositório é um início de todos os meus passos iniciais com Vulkan. Atu
 
 
 
-## Lições feitas até agora:
+## Lições feitas até agora
 
-### Development Environment
+- [x] **Development Environment**
 
-### Drawing a Triangle
+- [x] **Drawing a Triangle**
 
-#### Setup
-
-##### Base Code
-
-##### Instance 
-
-##### Validation Layers
-
-##### Physical devices and queue families
-
-##### Logical device and queues _(fazendo)_
-
+  - [x] **Setup**
+    - [x] Base Code
+    - [x] Instance 
+    - [x] Validation Layers
+    - [x] Physical devices and queue families
+    - [x] Logical device and queues
+  - [ ] **Presentation**
+    - [ ] 

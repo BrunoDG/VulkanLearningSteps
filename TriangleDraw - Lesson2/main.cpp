@@ -69,8 +69,14 @@ private:
 #pragma region private variables
 
 	GLFWwindow* window;
+
 	VkInstance instance;
 	VkDebugUtilsMessengerEXT callback;
+	
+	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+	VkDevice device;
+
+	VkQueue graphicsQueue;
 
 #pragma endregion 
  
@@ -89,6 +95,7 @@ private:
 		createInstance();
 		setupDebugCallback();
 		pickPhysicalDevice();
+		createLogicalDevice();
 	}
 
 	void mainLoop()
@@ -101,6 +108,9 @@ private:
 
 	void cleanup()
 	{
+		//Destroy the device
+		vkDestroyDevice(device, nullptr);
+
 		if (enableValidationLayers)
 		{
 			DestroyDebugUtilsMessengerEXT(instance, callback, nullptr);
@@ -108,6 +118,7 @@ private:
 
 		//destroys Vulkan instance
 		vkDestroyInstance(instance, nullptr);
+
 		//destroys the window created by GLFW and terminates the program
 		glfwDestroyWindow(window);
 		glfwTerminate();
@@ -156,6 +167,7 @@ private:
 		}
 	}
 
+	// Create Physical Device for Vulkan to use
 	void pickPhysicalDevice()
 	{
 		VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
@@ -200,6 +212,46 @@ private:
 		}
 	}
 
+	// Creation of Logical Device
+	void createLogicalDevice(){
+		QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
+		
+		VkDeviceQueueCreateInfo queueCreateInfo = {};
+		queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+		queueCreateInfo.queueFamilyIndex = indices.graphicsFamily.value();
+		queueCreateInfo.queueCount = 1;
+
+		float queuePriority = 1.0f;
+		queueCreateInfo.pQueuePriorities = &queuePriority;
+
+		VkPhysicalDeviceFeatures deviceFeatures = {};
+
+		VkDeviceCreateInfo createInfo = {};
+		createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+		
+		createInfo.pQueueCreateInfos = &queueCreateInfo;
+		createInfo.queueCreateInfoCount = 1;
+
+		createInfo.pEnabledFeatures = &deviceFeatures;
+		createInfo.enabledExtensionCount = 0;
+
+		// Validation Layer for logical devices
+		if (enableValidationLayers) {
+			createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
+			createInfo.ppEnabledLayerNames = validationLayers.data();
+		} else {
+			createInfo.enabledLayerCount = 0;
+		}
+
+		// instantiate the logical device
+		if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
+			throw std::runtime_error("failed to create logical device!");
+		}
+
+		vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
+	}
+
+	// Check if device is suitable to use with Vulkan
 	int rateDeviceSuitability(VkPhysicalDevice device)
 	{
 		VkPhysicalDeviceProperties deviceProperties;
@@ -225,6 +277,7 @@ private:
 		return score;
 	}
 
+	// Check suitability of device
 	bool isDeviceSuitable(VkPhysicalDevice device) {
 		QueueFamilyIndices indices = findQueueFamilies(device);
 		
