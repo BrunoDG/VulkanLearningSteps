@@ -16,4 +16,4 @@ Este repositório é um início de todos os meus passos iniciais com Vulkan. Atu
     - [x] Physical devices and queue families
     - [x] Logical device and queues
   - [ ] **Presentation**
-    - [ ] 
+    - [ ] Window Surface

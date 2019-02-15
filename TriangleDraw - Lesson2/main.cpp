@@ -72,6 +72,7 @@ private:
 
 	VkInstance instance;
 	VkDebugUtilsMessengerEXT callback;
+	VkSurfaceKHR surface;
 	
 	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 	VkDevice device;
